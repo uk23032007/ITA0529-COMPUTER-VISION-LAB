@@ -1,0 +1,6 @@
+import cv2
+import numpy as np
+img = cv2.imread('sample.jpg', 0)
+cv2.imshow('Original vs Equalized', np.hstack((img, cv2.equalizeHist(img))))
+cv2.waitKey(0)
+cv2.destroyAllWindows()
