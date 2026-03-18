@@ -1,0 +1,5 @@
+import cv2
+img = cv2.imread('input.jpg')
+roi = img[100:300, 150:350]
+img[350:550, 400:600] = roi
+cv2.imwrite('roi_output.jpg', img)
