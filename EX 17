@@ -1,0 +1,10 @@
+import cv2
+img = cv2.imread('input.jpg')
+watermark = cv2.imread('watermark.png')
+h, w = img.shape[:2]
+wm = cv2.resize(watermark, (int(w * 0.3), int(h * 0.3)))
+x, y = w - wm.shape[1] - 10, h - wm.shape[0] - 10
+roi = img[y:y + wm.shape[0], x:x + wm.shape[1]]
+blended = cv2.addWeighted(roi, 0.7, wm, 0.3, 0)
+img[y:y + wm.shape[0], x:x + wm.shape[1]] = blended
+cv2.imwrite('watermarked.jpg', img)
