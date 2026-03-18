@@ -1,0 +1,16 @@
+import cv2
+import numpy as np
+def subtract_foreground(image_path, lower_color, upper_color):
+    image = cv2.imread(image_path)
+    if image is None:
+        print(f"Error loading {image_path}")
+        return
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    mask = cv2.inRange(hsv, np.array(lower_color), np.array(upper_color))
+    mask_inv = cv2.bitwise_not(mask)
+    result = cv2.bitwise_and(image, image, mask=mask_inv)
+    cv2.imshow("Foreground Subtracted", result)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    cv2.imwrite("foreground_subtracted.jpg", result)
+subtract_foreground("input_image.jpg", [0,0,0], [180,255,50])
